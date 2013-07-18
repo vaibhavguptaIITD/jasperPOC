@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="parentReport" language="java" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" >
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/Users/vaibhav/Documents/myStuff/experiments/jasperExperiments/jasperPOC/springmvc/target/springmvc-1.0-SNAPSHOT/WEB-INF/classes/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="aircraftYearType" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="aircraftEngineType" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="aircraftType" class="net.sf.jasperreports.engine.JasperReport"/>
+	<summary>
+		<band height="802">
+			<frame>
+				<reportElement  x="0" y="0" width="226" height="187"/>
+				<subreport>
+					<reportElement  x="0" y="0" width="226" height="187">
+					<property name="net.sf.jasperreports.export.html.remove.emtpy.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.html.class" value="coco"/>
+					<property name="net.sf.jasperreports.export.html.id" value="aircraftType"/>
+					</reportElement>
+					<subreportParameter name="state"/>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{aircraftType}]]></subreportExpression>
+				</subreport>
+			</frame>
+			<frame>
+				<reportElement  x="245" y="0" width="245" height="187">
+				<property name="net.sf.jasperreports.export.html.remove.emtpy.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.html.class" value="coco"/>
+					<property name="net.sf.jasperreports.export.html.id" value="aircraftEngineType"/>
+				</reportElement>
+				<subreport>
+					<reportElement  x="0" y="0" width="245" height="187"/>
+					<subreportParameter name="state"/>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{aircraftEngineType}]]></subreportExpression>
+				</subreport>
+			</frame>
+			<frame>
+				<reportElement  x="0" y="206" width="226" height="199">
+				<property name="net.sf.jasperreports.export.html.remove.emtpy.space.between.rows" value="true"/>
+					<property name="net.sf.jasperreports.export.html.class" value="coco"/>
+					<property name="net.sf.jasperreports.export.html.id" value="aircraftYearType"/>
+				</reportElement>
+				<subreport>
+					<reportElement  x="0" y="0" width="226" height="199"/>
+					<subreportParameter name="state"/>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{aircraftYearType}]]></subreportExpression>
+				</subreport>
+			</frame>
+		</band>
+	</summary>
+</jasperReport>

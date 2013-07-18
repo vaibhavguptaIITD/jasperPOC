@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+		
+	<util:map id="exportParameterMap">
+                <entry key="net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN">
+                        <value>false</value>
+                </entry>
+                 <entry key="net.sf.jasperreports.engine.export.JRHtmlExporterParameter.IMAGES_URI">
+                    <value>/report/images?image=</value>
+                 </entry>
+        </util:map>
+
+	<bean id="report3"
+	   class="com.vaibhav.view.CustomJasperReportsMultiFormatView">
+	   <property name="url" value="classpath:report3.jrxml"/>
+	   <property name="exporterParameters" ref="exportParameterMap"/>
+	</bean>
+	<bean id="aircraftType"
+	   class="com.vaibhav.view.CustomJasperReportsMultiFormatView">
+	   <property name="url" value="classpath:aircraftType.jrxml"/>
+	   <property name="exporterParameters" ref="exportParameterMap"/>
+	</bean>
+	<bean id="aircraftEngineType"
+	   class="com.vaibhav.view.CustomJasperReportsMultiFormatView">
+	   <property name="url" value="classpath:aircraftEngineType.jrxml"/>
+	   <property name="exporterParameters" ref="exportParameterMap"/>
+	</bean>
+	<bean id="aircraftYearType"
+	   class="com.vaibhav.view.CustomJasperReportsMultiFormatView">
+	   <property name="url" value="classpath:aircraftYearType.jrxml"/>
+	   <property name="exporterParameters" ref="exportParameterMap"/>
+	</bean>
+	<!-- <bean id="masterReport"
+	   class="com.vaibhav.view.CustomJasperReportsMultiFormatView">
+	   <property name="url" value="classpath:masterReport.jrxml"/>
+	   <property name="exporterParameters" ref="exportParameterMap"/>
+	</bean> -->
+	<bean id="parentReport"
+	   class="com.vaibhav.view.CustomJasperReportsMultiFormatView">
+	   <property name="url" value="classpath:parentReport.jrxml"/>
+	   <property name="exporterParameters" ref="exportParameterMap"/>
+	   <property name="subReportUrls">
+		    <map>
+		        <entry key="aircraftEngineType" value="classpath:aircraftEngineType.jrxml"/>
+		        <entry key="aircraftYearType" value="classpath:aircraftYearType.jrxml"/>
+		        <entry key="aircraftType" value="classpath:aircraftType.jrxml"/>
+		    </map>
+		</property>
+	</bean>
+</beans>

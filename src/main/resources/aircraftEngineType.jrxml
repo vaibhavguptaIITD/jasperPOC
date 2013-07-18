@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="aircraftEngineType" language="java" pageWidth="487" pageHeight="363" columnWidth="487" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" >
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="state" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["NV"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select aet.description, count(description) as total  from
+aircraft_engine_types aet,
+aircraft a
+where
+a.aircraft_engine_type_id= aet.aircraft_engine_type_id
+and a.state = $P{state}
+group by aet.description;]]>
+	</queryString>
+	<field name="description" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<summary>
+		<band height="363" splitType="Stretch">
+			<pieChart>
+				<chart>
+					<reportElement  x="0" y="0" width="487" height="363"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{description}]]></keyExpression>
+					<valueExpression><![CDATA[$F{total}]]></valueExpression>
+					<labelExpression><![CDATA[$F{description}]]></labelExpression>
+					<sectionHyperlink>
+						<hyperlinkTooltipExpression><![CDATA[$F{total}.toString()]]></hyperlinkTooltipExpression>
+					</sectionHyperlink>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>
