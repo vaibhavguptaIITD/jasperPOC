@@ -1,5 +1,5 @@
-# Jasper POC
-This is a POC for creating dashboard in jasper
+# JasperReport Dashboard POC
+This is a POC for creating dashboard using jasperreport.
 
 ## Installation
 ### Prerequisites
