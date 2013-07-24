@@ -26,6 +26,11 @@
 	   <property name="url" value="classpath:aircraftType.jrxml"/>
 	   <property name="exporterParameters" ref="exportParameterMap"/>
 	</bean>
+	<bean id="aircraftTypeCustom"
+	   class="com.vaibhav.view.CustomJasperReportsMultiFormatView">
+	   <property name="url" value="classpath:aircraftTypeCustom.jrxml"/>
+	   <property name="exporterParameters" ref="exportParameterMap"/>
+	</bean>
 	<bean id="aircraftEngineType"
 	   class="com.vaibhav.view.CustomJasperReportsMultiFormatView">
 	   <property name="url" value="classpath:aircraftEngineType.jrxml"/>

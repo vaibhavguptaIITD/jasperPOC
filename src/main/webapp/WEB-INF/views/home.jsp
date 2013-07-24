@@ -60,10 +60,13 @@
 														data-toggle="tab">Type</a></li>
 													<li class="borderRight"><a href="#aircraftEngineType"
 														data-toggle="tab">Engine Type</a></li>
+													<li class="borderRight"><a href="#aircraftTypeCustom"
+														data-toggle="tab">Type custom</a></li>
 												</ul>
 												<div class="tab-content">
 													<div class="tab-pane active" id="aircraftType"></div>
 													<div class="tab-pane" id="aircraftEngineType"></div>
+													<div class="tab-pane" id="aircraftTypeCustom"></div>
 												</div>
 											</div>
 										</li>
@@ -97,7 +100,7 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/js/app.js"></script>
 	<script type="text/javascript">
-	var reports = [ "aircraftYearType", "aircraftType", "aircraftEngineType" ];
+	var reports = [ "aircraftYearType", "aircraftType", "aircraftEngineType","aircraftTypeCustom" ];
 	var index = 0;
 	$(function() {
 		showReport(reports[index]);
@@ -112,11 +115,11 @@
 				}).done(function(data) {
 					var $htmlNode = $(data),
 					$reportContainer = $("#" + report),
-					$contentTable = $htmlNode.find("table");
+					$contentTable = $htmlNode.find("table:first");
 					$contentTable.find("img").each(function() {
 						this.src = this.src + "&jrprint=" + report + "_report";
 					});
-					$reportContainer.append($htmlNode.find("table"));
+					$reportContainer.append($htmlNode.find("table:first"));
 					if(index < reports.length - 1){
 						index++;
 						showReport(reports[index]);

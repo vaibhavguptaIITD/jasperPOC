@@ -32,7 +32,6 @@ public class JasperController {
 				model.put(entry.getKey(), entry.getValue());
 			}
 		}
-		//Connection has to be closed
 		model.put("REPORT_CONNECTION", dataSource.getConnection());
 		model.put("format", format);
 		
