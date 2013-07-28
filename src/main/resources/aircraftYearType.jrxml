@@ -26,7 +26,7 @@ group by year_built, description;]]>
 	<summary>
 		<band height="363" splitType="Stretch">
 			<bar3DChart>
-				<chart>
+				<chart customizerClass="com.vaibhav.customizer.CustomBarchartCustomizer">
 					<reportElement  x="0" y="0" width="487" height="363"/>
 					<chartTitle/>
 					<chartSubtitle/>
