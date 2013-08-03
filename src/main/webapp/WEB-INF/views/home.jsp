@@ -62,11 +62,15 @@
 														data-toggle="tab">Engine Type</a></li>
 													<li class="borderRight"><a href="#aircraftTypeCustom"
 														data-toggle="tab">Type custom</a></li>
+													<li class="borderRight"><a href="#aircraftByStateAndRegistrant"
+														data-toggle="tab">Aircraft by state</a></li>
 												</ul>
 												<div class="tab-content">
 													<div class="tab-pane active" id="aircraftType"></div>
 													<div class="tab-pane" id="aircraftEngineType"></div>
 													<div class="tab-pane" id="aircraftTypeCustom"></div>
+													<div class="tab-pane carousel" id="aircraftByStateAndRegistrant">
+													</div>
 												</div>
 											</div>
 										</li>
@@ -100,7 +104,7 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/js/app.js"></script>
 	<script type="text/javascript">
-	var reports = [ "aircraftYearType", "aircraftType", "aircraftEngineType","aircraftTypeCustom" ];
+	var reports = [ "aircraftYearType", "aircraftType", "aircraftEngineType","aircraftTypeCustom","aircraftByStateAndRegistrant" ];
 	var index = 0;
 	$(function() {
 		showReport(reports[index]);
@@ -115,11 +119,49 @@
 				}).done(function(data) {
 					var $htmlNode = $(data),
 					$reportContainer = $("#" + report),
-					$contentTable = $htmlNode.find("table:first");
+					$contentTable = $htmlNode.filter("table");
 					$contentTable.find("img").each(function() {
 						this.src = this.src + "&jrprint=" + report + "_report";
 					});
-					$reportContainer.append($htmlNode.find("table:first"));
+					var $pageAnchors = $contentTable.find("a[name^='JR_PAGE_ANCHOR_0']"),
+					totalItems = $pageAnchors.length;
+					if(totalItems > 1){
+						$pageAnchors.next().each(function(i, elem){
+							if(i){
+								$(elem).hide();
+							}
+						});
+						var $carouselAnchors = $("<a class=\"carousel-control left\">&lsaquo;</a><a class=\"carousel-control right\">&rsaquo;</a>");
+						var currentItemIndex = 1;
+						$carouselAnchors.click(function(){
+							var $anchor = $(this),
+							$currentItem = $contentTable.find("a[name='JR_PAGE_ANCHOR_0_"+currentItemIndex+"']").next(),
+							$targetItem = null;
+							if($anchor.hasClass("left") ){
+								if(currentItemIndex > 1){
+									currentItemIndex--;
+									$targetItem = $contentTable.find("a[name='JR_PAGE_ANCHOR_0_"+currentItemIndex+"']").next();	
+								}
+							}
+							else{
+								if(currentItemIndex < totalItems){
+									currentItemIndex++;	
+									$targetItem = $contentTable.find("a[name='JR_PAGE_ANCHOR_0_"+currentItemIndex+"']").next();	
+								}
+							}
+							if($targetItem){
+								$currentItem.hide();
+								$targetItem.show();
+							}
+							
+						});
+						$contentTable.find("br").remove();
+						$reportContainer.html($contentTable).append($carouselAnchors);
+					}
+					else{
+						$reportContainer.html($contentTable);	
+					}
+					
 					if(index < reports.length - 1){
 						index++;
 						showReport(reports[index]);

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="aircraftByStateAndRegistrant" language="java" pageWidth="487" pageHeight="363" columnWidth="487" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="08fff25e-e37e-45a5-af63-5414a393af6f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select state, count(*), registrant_type_id
+from aircraft
+group by state, registrant_type_id order by state]]>
+	</queryString>
+	<field name="state" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="count(*)" class="java.lang.Long"/>
+	<field name="registrant_type_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="variable2" class="java.lang.Integer">
+		<variableExpression><![CDATA[1]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="variable1" class="java.lang.Integer" incrementType="Group" incrementGroup="stateGroup" calculation="Count">
+		<variableExpression><![CDATA[Boolean.TRUE]]></variableExpression>
+	</variable>
+	<group name="splitter">
+		<groupExpression><![CDATA[$V{variable1} - 1 - ( ($V{variable1} - 1) % 10 )]]></groupExpression>
+		<groupFooter>
+			<band height="363">
+				<barChart>
+					<chart>
+						<reportElement uuid="e9448d61-9c94-4bac-ac01-3e6fc0e1e5bd" x="0" y="0" width="487" height="363">
+							<property name="net.sf.jasperreports.export.html.class" value="item"/>
+						</reportElement>
+						<chartTitle/>
+						<chartSubtitle/>
+						<chartLegend/>
+					</chart>
+					<categoryDataset>
+						<dataset resetType="Group" resetGroup="splitter"/>
+						<categorySeries>
+							<seriesExpression><![CDATA[$F{registrant_type_id}]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{state} == "" ? "N/A" : $F{state}]]></categoryExpression>
+							<valueExpression><![CDATA[$F{count(*)}]]></valueExpression>
+						</categorySeries>
+					</categoryDataset>
+					<barPlot>
+						<plot/>
+						<itemLabel/>
+						<categoryAxisFormat>
+							<axisFormat/>
+						</categoryAxisFormat>
+						<valueAxisFormat>
+							<axisFormat/>
+						</valueAxisFormat>
+					</barPlot>
+				</barChart>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="stateGroup">
+		<groupExpression><![CDATA[$F{state}]]></groupExpression>
+	</group>
+</jasperReport>

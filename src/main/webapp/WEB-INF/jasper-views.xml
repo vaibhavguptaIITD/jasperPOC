@@ -41,6 +41,12 @@
 	   <property name="url" value="classpath:aircraftYearType.jrxml"/>
 	   <property name="exporterParameters" ref="exportParameterMap"/>
 	</bean>
+	
+	<bean id="aircraftByStateAndRegistrant"
+	   class="com.vaibhav.view.CustomJasperReportsMultiFormatView">
+	   <property name="url" value="classpath:aircraftByStateAndRegistrant.jrxml"/>
+	   <property name="exporterParameters" ref="exportParameterMap"/>
+	</bean>
 	<!-- <bean id="masterReport"
 	   class="com.vaibhav.view.CustomJasperReportsMultiFormatView">
 	   <property name="url" value="classpath:masterReport.jrxml"/>
