@@ -87,6 +87,23 @@
 							</div>
 
 						</div>
+						
+						<div class="row-fluid clearfix">
+							<div class="span12">
+								<div class="row-fluid">
+									<ul>
+										<li class="span5">
+											<h3>
+												Aircraft by type Highcharts
+											</h3>
+											<a href="${pageContext.request.contextPath}/report/aircraftYearTypeHC.pdf?${filters}"><i class="icon-download"></i> PDF</a>
+											<div id="aircraftYearTypeHC"></div>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+						</div>
 						<div class="clearfix"></div>
 					</div>
 				</div>
@@ -101,13 +118,20 @@
 		src="${pageContext.request.contextPath}/resources/js/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+	
+<script class="jasperreports" type="text/javascript" src="${pageContext.request.contextPath}/resources/js/highcharts-2.3.2.original.src.js"></script>
+<script class="jasperreports" type="text/javascript" src="${pageContext.request.contextPath}/resources/js/default.service.js"></script>
+	
+	
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/js/app.js"></script>
 	<script type="text/javascript">
-	var reports = [ "aircraftYearType", "aircraftType", "aircraftEngineType","aircraftTypeCustom","aircraftByStateAndRegistrant" ];
+	var reports = [ "aircraftYearType", "aircraftType", "aircraftEngineType","aircraftTypeCustom","aircraftByStateAndRegistrant" ],
+	reportsHC = ["aircraftYearTypeHC"];
 	var index = 0;
 	$(function() {
 		showReport(reports[index]);
+		showReportHC(reportsHC[index]);
 	});
 
 	function showReport(report) {
@@ -168,7 +192,26 @@
 					}
 				});
 	}
-
+	
+	function showReportHC(report) {
+		$.ajax(
+				{
+					url : "${pageContext.request.contextPath}/report/" + report
+							+ ".html?${filters}",
+					dataType : "html"
+				}).done(function(data) {
+					var $htmlNode = $(data),
+					$reportContainer = $("#" + report),
+					$highChartsParent = $htmlNode.filter("div.highcharts_parent_container"),
+					hcScripts = $htmlNode.filter("script.jasperreports");
+					$reportContainer.html($highChartsParent).append(hcScripts);
+					if(index < reports.length - 1){
+						index++;
+						showReportHC(reportsHC[index]);
+					}
+				});
+	}
+	
 </script>
 </body>
 </html>

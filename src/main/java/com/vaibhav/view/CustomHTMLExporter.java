@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRHtmlExporter;
-import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
-import net.sf.jasperreports.j2ee.servlets.ImageServlet;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -22,6 +21,7 @@ public class CustomHTMLExporter extends AbstractJasperReportsSingleFormatView{
 		JRHtmlExporter htmlExporter = new JRHtmlExporter();
 //	    htmlExporter.setParameter(JRHtmlExporterParameter.IMAGES_URI,
 //	                              "/report/images?image=");
+		
 	    return htmlExporter;
 	  }
 
