@@ -4,3 +4,8 @@
 .springBeans
 target
 .DS_Store
+*LICENSE*
+.metadata
+default.service.js
+highcharts-2.3.2.original.src.js
+item.hyperlink.service.js

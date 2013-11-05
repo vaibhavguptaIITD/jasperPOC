@@ -52,6 +52,16 @@
 	   <property name="url" value="classpath:aircraftYearTypeHC.jrxml"/>
 	   <property name="exporterParameters" ref="exportParameterMap"/>
 	</bean>
+	<bean id="aircraftsByStateAndYear"
+	   class="com.vaibhav.view.CustomJasperReportsMultiFormatView">
+	   <property name="url" value="classpath:aircraftsByStateAndYear.jrxml"/>
+	   <property name="exporterParameters" ref="exportParameterMap"/>
+	</bean>
+	<bean id="aircraftCertByStateAndYear"
+	   class="com.vaibhav.view.CustomJasperReportsMultiFormatView">
+	   <property name="url" value="classpath:aircraftCertByStateAndYear.jrxml"/>
+	   <property name="exporterParameters" ref="exportParameterMap"/>
+	</bean>
 	<!-- <bean id="masterReport"
 	   class="com.vaibhav.view.CustomJasperReportsMultiFormatView">
 	   <property name="url" value="classpath:masterReport.jrxml"/>
