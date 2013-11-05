@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="aircraftsByStateAndYear" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f5d4a2dc-b97e-436a-a1be-a266bbee8bdd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="256"/>
+	<queryString>
+		<![CDATA[select count(*) as count, state, year_built from aircraft group by state, year_built limit 0, 10]]>
+	</queryString>
+	<field name="count" class="java.lang.Long"/>
+	<field name="state" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="year_built" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<summary>
+		<band height="802" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="1c23594d-4d94-49c7-8e54-59d4039e6387" x="0" y="0" width="555" height="802"/>
+				<hc:chart xmlns:hc="http://jaspersoft.com/highcharts" xsi:schemaLocation="http://jaspersoft.com/highcharts http://jaspersoft.com/schema/highcharts.xsd" type="Column">
+					<hc:hyperlink hyperlinkType="LocalPage"/>
+					<hc:chartSetting name="default">
+						<hc:chartProperty name="title.text" value=""/>
+						<hc:chartProperty name="credits.text" value=""/>
+						<hc:chartProperty name="credits.enabled" value="false"/>
+						<hc:chartProperty name="credits.href" value=""/>
+						<hc:chartProperty name="yAxis.title.text" value=""/>
+					</hc:chartSetting>
+					<multiAxisData>
+						<multiAxisDataset/>
+						<dataAxis axis="Rows">
+							<axisLevel name="States">
+								<labelExpression><![CDATA["States"]]></labelExpression>
+								<axisLevelBucket class="java.lang.String">
+									<bucketExpression><![CDATA[$F{state}]]></bucketExpression>
+									<bucketProperty name="state"><![CDATA["javascript:Dashboard.loadDrillDownReport('aircraftCertByStateAndYear', {'filters[state]':'"+$F{state}+"','filters[year]':'"+$F{year_built}+"'})"]]></bucketProperty>
+								</axisLevelBucket>
+							</axisLevel>
+						</dataAxis>
+						<dataAxis axis="Columns">
+							<axisLevel name="Year">
+								<labelExpression><![CDATA["Year"]]></labelExpression>
+								<axisLevelBucket class="java.util.Date">
+									<bucketExpression><![CDATA[$F{year_built}]]></bucketExpression>
+								</axisLevelBucket>
+							</axisLevel>
+						</dataAxis>
+						<multiAxisMeasure name="Measure1" class="java.lang.Number" calculation="Nothing">
+							<labelExpression><![CDATA[""]]></labelExpression>
+							<valueExpression><![CDATA[$F{count}]]></valueExpression>
+						</multiAxisMeasure>
+					</multiAxisData>
+					<hc:series name="Measure1">
+						<hc:contributor name="SeriesItemHyperlink">
+							<hc:contributorProperty name="hyperlinkReference" valueType="Bucket" value="States.state"/>
+							<hc:contributorProperty name="hyperlinkType" valueType="Constant" value="Reference"/>
+						</hc:contributor>
+					</hc:series>
+				</hc:chart>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>
